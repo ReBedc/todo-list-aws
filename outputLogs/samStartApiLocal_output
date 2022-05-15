@@ -1,0 +1,9 @@
+% sam local start-api --port 8081 --env-vars localEnvironment.json --docker-network sam
+
+Mounting DeleteTodoFunction at http://127.0.0.1:8081/todos/{id} [DELETE]
+Mounting GetTodoFunction at http://127.0.0.1:8081/todos/{id} [GET]
+Mounting CreateTodoFunction at http://127.0.0.1:8081/todos [POST]
+Mounting UpdateTodoFunction at http://127.0.0.1:8081/todos/{id} [PUT]
+Mounting ListTodosFunction at http://127.0.0.1:8081/todos [GET]
+You can now browse to the above endpoints to invoke your functions. You do not need to restart/reload SAM CLI while working on your functions, changes will be reflected instantly/automatically. You only need to restart SAM CLI if you update your AWS SAM template
+2022-05-15 17:23:55  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit) 

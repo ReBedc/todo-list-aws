@@ -1,0 +1,9 @@
+% docker run -p 8000:8000 --network sam --name dynamodb -d amazon/dynamodb-local
+Unable to find image 'amazon/dynamodb-local:latest' locally
+latest: Pulling from amazon/dynamodb-local
+b2e274b2b0f9: Pull complete
+83b776717a80: Pull complete
+e6bfa11b99a0: Pull complete
+Digest: sha256:07e740ad576acdcfdc48676f9a153a93a8e35436ea36942d4c14939caeca8851
+Status: Downloaded newer image for amazon/dynamodb-local:latest
+9e93a7b0c4061605b86dcdb0ed735a6f765ad93e27e8675d99c1230f238c562a 
