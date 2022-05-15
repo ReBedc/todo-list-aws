@@ -1,0 +1,27 @@
+voclabs:~/environment/todo-list-aws (feature/aws_local) $ sam build
+
+        SAM CLI now collects telemetry to better understand customer needs.
+
+        You can OPT OUT and disable telemetry collection by setting the
+        environment variable SAM_CLI_TELEMETRY=0 in your shell.
+        Thanks for your help!
+
+        Learn More: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-telemetry.html
+
+Building codeuri: /home/ubuntu/environment/todo-list-aws/src runtime: python3.7 metadata: {} architecture: x86_64 functions: ['CreateTodoFunction', 'ListTodosFunction', 'GetTodoFunction', 'UpdateTodoFunction', 'DeleteTodoFunction']
+Running PythonPipBuilder:ResolveDependencies
+Running PythonPipBuilder:CopySource
+
+Build Succeeded
+
+Built Artifacts  : .aws-sam/build
+Built Template   : .aws-sam/build/template.yaml
+
+Commands you can use next
+=========================
+[*] Invoke Function: sam local invoke
+[*] Deploy: sam deploy --guided
+    
+
+SAM CLI update available (1.50.0); (1.33.0 installed)
+To download: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html
