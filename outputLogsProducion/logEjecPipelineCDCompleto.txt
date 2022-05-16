@@ -1,0 +1,111 @@
+Started by user devops unir
+Obtained pipelines/PIPELINE-FULL-CD/Jenkinsfile from git git@github.com:ReBedc/todo-list-aws.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/PIPELINE-FULL-CD
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github
+Cloning the remote Git repository
+Cloning repository git@github.com:ReBedc/todo-list-aws.git
+ > git init /var/lib/jenkins/workspace/PIPELINE-FULL-CD # timeout=10
+Fetching upstream changes from git@github.com:ReBedc/todo-list-aws.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.17.1'
+using GIT_SSH to set credentials
+ > git fetch --tags --progress -- git@github.com:ReBedc/todo-list-aws.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url git@github.com:ReBedc/todo-list-aws.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 287e7ff02cbdadf54eee9fcecdd93e471639bf59 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 287e7ff02cbdadf54eee9fcecdd93e471639bf59 # timeout=10
+Commit message: "Añado output ejecución pipepline Production"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Staging)
+[Pipeline] echo
+Starting staging job
+[Pipeline] build
+Scheduling project: PIPELINE-FULL-STAGING
+Starting building: PIPELINE-FULL-STAGING #20
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Merge)
+[Pipeline] sh
++ set -x
++ git branch -a
+* (HEAD detached at 287e7ff)
+  remotes/origin/develop
+  remotes/origin/feature/aws_local
+  remotes/origin/feature/local
+  remotes/origin/feature/new_feature_staging
+  remotes/origin/master
++ git checkout -b develop origin/develop
+Previous HEAD position was 287e7ff Añado output ejecución pipepline Production
+Switched to a new branch 'develop'
+Branch 'develop' set up to track remote branch 'develop' from 'origin'.
++ git checkout -b master origin/master
+Switched to a new branch 'master'
+Branch 'master' set up to track remote branch 'master' from 'origin'.
++ git merge develop
+Already up to date.
+[Pipeline] sshagent
+[ssh-agent] Using credentials ReBedc
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-YwRj8vJq8v3H/agent.7396
+SSH_AGENT_PID=7399
+Running ssh-add (command line suppressed)
+Identity added: /var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_2975830109602812762.key (/var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_2975830109602812762.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] sh
++ git push origin master
+Warning: Permanently added the ECDSA host key for IP address '140.82.114.3' to the list of known hosts.
+Everything up-to-date
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 7399 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Production)
+[Pipeline] echo
+Starting production job
+[Pipeline] build
+Scheduling project: PIPELINE-FULL-PRODUCTION
+Starting building: PIPELINE-FULL-PRODUCTION #2
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Clean env: delete dir
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
