@@ -25,7 +25,7 @@ image_repositories = []
 [production.deploy]
 [production.deploy.parameters]
 stack_name = "todo-list-aws-production"
-s3_bucket = "aws-sam-cli-managed-production-samclisourcebucket-XXXXX" #Incluir bucket propio
+s3_bucket = "unir-rdelgadoc-production" #Bucket propio PRO
 s3_prefix = "todo-list-aws"
 region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
