@@ -6,6 +6,8 @@ from moto import mock_dynamodb2
 import sys
 import os
 import json
+from unittest.mock import Mock
+
 
 @mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
@@ -200,6 +202,80 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
 
+@mock_dynamodb2
+class TestDatabaseFunctionsError(unittest.TestCase):
+    def setUp(self):
+        print ('---------------------')
+        print ('Start: setUpError')
+        warnings.filterwarnings(
+            "ignore",
+            category=ResourceWarning,
+            message="unclosed.*<socket.socket.*>")
+        warnings.filterwarnings(
+            "ignore",
+            category=DeprecationWarning,
+            message="callable is None.*")
+        warnings.filterwarnings(
+            "ignore",
+            category=DeprecationWarning,
+            message="Using or importing.*")
+        """Create the mock database and table"""
+        self.dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+        self.is_local = 'true'
+
+        from src.todoList import create_todo_table
+        self.table = table = Mock()
+        print ('End: setUpError')
+
+    def tearDown(self):
+        print ('---------------------')
+        print ('Start: tearDownError')
+        """Delete mock database and table after test is run"""
+        self.table.delete()
+        print ('Table deleted succesfully')
+        #self.table_local.delete()
+        self.dynamodb = None
+        print ('End: tearDownError')
+
+    def test_get_todo_error(self):
+        print ('---------------------')
+        print ('Start: test_get_todo_error')
+        # Testing file functions
+        from src.todoList import get_item
+        # Raise exception
+        self.table.get_item.side_effect = Exception('Boto3 Exception')
+        get_item("", self.dynamodb)
+        print ('End: test_get_todo_error')
+
+    def test_put_todo_error(self):
+        print ('---------------------')
+        print ('Start: test_put_todo_error')
+        # Testing file functions
+        from src.todoList import put_item
+        # Raise exception
+        self.table.put_item.side_effect = Exception('Boto3 Exception')
+        put_item("", self.dynamodb)
+        print ('End: test_put_todo_error')
+
+    def test_update_todo_error(self):
+        print ('---------------------')
+        print ('Start: test_update_todo_error')
+        # Testing file functions
+        from src.todoList import update_item
+        # Raise exception
+        self.table.update_item.side_effect = Exception('Boto3 Exception')
+        update_item("key","","false", self.dynamodb)
+        print ('End: test_update_todo_error')
+
+    def test_delete_todo_error(self):
+        print ('---------------------')
+        print ('Start: test_delete_todo_error')
+        # Testing file functions
+        from src.todoList import delete_item
+        # Raise exception
+        self.table.delete_item.side_effect = Exception('Boto3 Exception')
+        delete_item("", self.dynamodb)
+        print ('End: test_delete_todo_error')
 
 
 if __name__ == '__main__':
