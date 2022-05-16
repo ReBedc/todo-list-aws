@@ -16,3 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2022-05-16
 ### Added
 - Añadidos test casos de excepción para aumentar cobertura
+
+## [1.0.0] - 2022-05-16
+### Added
+- Modificación del S3 bucket (production) al propio.
