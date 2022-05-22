@@ -329,56 +329,5 @@ class TestDatabaseFunctionsError(unittest.TestCase):
 
 
 
-
-
-mock_get_response = {
-    'Languages': [
-        {
-            'LanguageCode': 'string',
-            'Score': 'number'
-        }
-    ],
-    'ResponseMetadata':
-    {
-        'RequestId': 'string',
-        'HTTPStatusCode': 'number',
-        'HTTPHeaders': {
-            'x-amzn-requestid': 'string',
-            'content-type': 'string',
-            'content-length': 'string',
-            'date': 'string'
-        },
-        'RetryAttempts': 'number'
-    }
-
-    # 'Languages': [
-    #     {
-    #         'LanguageCode': 'en',
-    #         'Score': 0.9756249189376831
-    #     }
-    # ],
-    # 'ResponseMetadata':
-    # {
-    #     'RequestId': 'fddffd10-59dd-4b7c-9789-7b30581a0065',
-    #     'HTTPStatusCode': 200,
-    #     'HTTPHeaders': {
-    #         'x-amzn-requestid': 'fddffd10-59dd-4b7c-9789-7b30581a0065',
-    #         'content-type': 'application/x-amz-json-1.1',
-    #         'content-length': '64', '
-    #         date': 'Sat, 21 May 2022 19:54:23 GMT'
-    #     },
-    #     'RetryAttempts': 0
-    # }
-
-    # 'Tags': [
-    #     {
-    #         'ResourceId': 'string',
-    #         'ResourceType': 'customer-gateway',
-    #         'Key': 'string',
-    #         'Value': 'string'
-    #     },
-    # ],
-}
-
 if __name__ == '__main__':
     unittest.main()
