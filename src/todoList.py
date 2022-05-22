@@ -151,12 +151,11 @@ def translate_item(key, lan, dynamodb=None):
         if item:
             sourceLanguage = getLanguage(item['Item']['text'])
             translatedText = translateText(item['Item']['text'], sourceLanguage, lan)
-            item['text'] = translatedText
-
+            item['Item']['text'] = translatedText['TranslatedText']
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        return item
+        return item['Item']
 
 def create_todo_table(dynamodb):
     # For unit testing
