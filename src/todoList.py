@@ -120,11 +120,10 @@ def getLanguage(text):
     print('Texto a detectar lenguaje: '+text)
     # detect language
     try:
-        comprehend_client = boto3.client(service_name='comprehend', 
+        comprehend_client = boto3.client(service_name='comprehend',
             region_name='us-east-1', use_ssl=True)
-        responseComprehend = 
-            comprehend_client.detect_dominant_language(Text=text)
-        languages = responseComprehend['Languages']
+        respComprehend = comprehend_client.detect_dominant_language(Text=text)
+        languages = respComprehend['Languages']
     except ClientError:
         print("Couldn't detect languages.")
         sourceLanguage = 'es'
@@ -136,10 +135,10 @@ def getLanguage(text):
 def translateText(text, sourceLanguage, targetLanguage):
     try:
         #translate item
-        translate = boto3.client(service_name='translate', 
+        translate = boto3.client(service_name='translate',
             region_name='us-east-1', use_ssl=True)
-        result = translate.translate_text(Text=text, 
-            SourceLanguageCode=sourceLanguage, 
+        result = translate.translate_text(Text=text,
+            SourceLanguageCode=sourceLanguage,
             TargetLanguageCode=targetLanguage)
     except ClientError:
         print("Couldn't translate text.")
