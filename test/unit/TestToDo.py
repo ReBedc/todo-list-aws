@@ -6,7 +6,7 @@ from moto import mock_dynamodb2
 import sys
 import os
 import json
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 
 @mock_dynamodb2
@@ -31,6 +31,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.is_local = 'true'
         self.uuid = "123e4567-e89b-12d3-a456-426614174000"
         self.text = "Aprender DevOps y Cloud en la UNIR"
+        self.comprehend_client = comprehend_client = Mock()
+        self.translate_client = translate_client = Mock()
 
         from src.todoList import create_todo_table
         self.table = create_todo_table(self.dynamodb)
@@ -59,7 +61,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIn(tableName, self.table.name)
         #self.assertIn('todoTable', self.table_local.name)
         print ('End: test_table_exists')
-        
+
 
     def test_put_todo(self):
         print ('---------------------')
@@ -106,7 +108,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.text,
             responseGet['text'])
         print ('End: test_get_todo')
-    
+
     def test_list_todo(self):
         print ('---------------------')
         print ('Start: test_list_todo')
@@ -202,6 +204,54 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
 
+    @patch('src.todoList.getLanguage')
+    def test_comprehend(self, mock_getLanguage):
+        print ('---------------------')
+        print ('Start: test_comprehend')
+        from src.todoList import getLanguage
+        mock_getLanguage.return_value = 'es'
+        languageDetected = getLanguage(self.text)
+        self.assertEqual(languageDetected,'es')
+        print ('End: test_comprehend')
+
+    @patch('src.todoList.translateText')
+    def test_translateText(self, mock_translateText):
+        print ('---------------------')
+        print ('Start: test_translate_todo')
+        from src.todoList import translateText
+        mock_translateText.return_value = 'Learn DevOps and Cloud at UNIR'
+        translatedText = translateText(self.text,'es','en')
+        self.assertEqual(translatedText,'Learn DevOps and Cloud at UNIR')
+        print ('End: test_translate_todo')
+
+    @patch('src.todoList.translateText')
+    def test_translate_todo(self, mock_translateText):
+        print ('---------------------')
+        print ('Start: test_translate_todo')
+        from src.todoList import get_item
+        from src.todoList import put_item
+        from src.todoList import translateText, translate_item
+        # Testing file functions
+        # Table mock
+        responsePut = put_item(self.text, self.dynamodb)
+        print ('Response put_item:' + str(responsePut))
+        idItem = json.loads(responsePut['body'])['id']
+        print ('Id item:' + idItem)
+        self.assertEqual(200, responsePut['statusCode'])
+        responseGet = get_item(
+                idItem,
+                self.dynamodb)
+        print ('Response Get:' + str(responseGet))
+        self.assertEqual(
+            self.text,
+            responseGet['text'])
+        mock_translateText.return_value = 'Learn DevOps and Cloud at UNIR'
+        translatedText = translateText(self.text,'es','en')
+        translatedItem = translate_item(idItem, 'en', self.dynamodb)
+        self.assertEqual(translatedText,'Learn DevOps and Cloud at UNIR')
+        print ('End: test_translate_todo')
+
+
 @mock_dynamodb2
 class TestDatabaseFunctionsError(unittest.TestCase):
     def setUp(self):
@@ -276,6 +326,7 @@ class TestDatabaseFunctionsError(unittest.TestCase):
         self.table.delete_item.side_effect = Exception('Boto3 Exception')
         delete_item("", self.dynamodb)
         print ('End: test_delete_todo_error')
+
 
 
 if __name__ == '__main__':
