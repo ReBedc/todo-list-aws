@@ -116,6 +116,55 @@ def delete_item(key, dynamodb=None):
         return
 
 
+def getLanguage(text):
+    print('Texto a detectar lenguaje: '+text)
+    # detect language
+    try:
+        comprehend_client = boto3.client(service_name='comprehend',
+                                         region_name='us-east-1', use_ssl=True)
+        respComprehend = comprehend_client.detect_dominant_language(Text=text)
+        languages = respComprehend['Languages']
+    except ClientError:
+        print("Couldn't detect languages.")
+        sourceLanguage = 'es'
+    else:
+        sourceLanguage = languages[0]['LanguageCode']
+    return sourceLanguage
+
+
+def translateText(text, sourceLanguage, targetLanguage):
+    try:
+        # translate item
+        translate = boto3.client(service_name='translate',
+                                 region_name='us-east-1', use_ssl=True)
+        result = translate.translate_text(Text=text,
+                                          SourceLanguageCode=sourceLanguage,
+                                          TargetLanguageCode=targetLanguage)
+    except ClientError:
+        print("Couldn't translate text.")
+        result = text
+
+    return result
+
+
+def translate_item(key, lan, dynamodb=None):
+    table = get_table(dynamodb)
+    try:
+        item = table.get_item(
+                    Key={
+                        'id': key
+                    })
+        if item:
+            sourceLanguage = getLanguage(item['Item']['text'])
+            translatedText = translateText(item['Item']['text'],
+                                           sourceLanguage, lan)
+            item['Item']['text'] = translatedText['TranslatedText']
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        return item['Item']
+
+
 def create_todo_table(dynamodb):
     # For unit testing
     tableName = os.environ['DYNAMODB_TABLE']
