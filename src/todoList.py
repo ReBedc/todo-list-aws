@@ -121,7 +121,7 @@ def getLanguage(text):
     # detect language
     try:
         comprehend_client = boto3.client(service_name='comprehend',
-            region_name='us-east-1', use_ssl=True)
+                                         region_name='us-east-1', use_ssl=True)
         respComprehend = comprehend_client.detect_dominant_language(Text=text)
         languages = respComprehend['Languages']
     except ClientError:
@@ -134,12 +134,12 @@ def getLanguage(text):
 
 def translateText(text, sourceLanguage, targetLanguage):
     try:
-        #translate item
+        # translate item
         translate = boto3.client(service_name='translate',
-            region_name='us-east-1', use_ssl=True)
+                                 region_name='us-east-1', use_ssl=True)
         result = translate.translate_text(Text=text,
-            SourceLanguageCode=sourceLanguage,
-            TargetLanguageCode=targetLanguage)
+                                          SourceLanguageCode=sourceLanguage,
+                                          TargetLanguageCode=targetLanguage)
     except ClientError:
         print("Couldn't translate text.")
         result = text
@@ -157,7 +157,7 @@ def translate_item(key, lan, dynamodb=None):
         if item:
             sourceLanguage = getLanguage(item['Item']['text'])
             translatedText = translateText(item['Item']['text'],
-                sourceLanguage, lan)
+                                           sourceLanguage, lan)
             item['Item']['text'] = translatedText['TranslatedText']
     except ClientError as e:
         print(e.response['Error']['Message'])
