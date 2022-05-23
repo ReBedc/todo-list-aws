@@ -232,7 +232,7 @@ class TestApi(unittest.TestCase):
             json_response['text'], "Aprender DevOps y Cloud en la UNIR", "Error en la petición API a {url}"
         )
         #Test TRANSLATE TODO
-        url = BASE_URL+"/todos/"+ID_TODO+"/es"
+        url = BASE_URL+"/todos/"+ID_TODO+"/en"
         response = requests.get(url)
         json_response = response.json()
         print('Response Get Todo: '+ str(json_response))
