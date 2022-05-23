@@ -244,6 +244,7 @@ class TestApi(unittest.TestCase):
         )
 
         #Delete TODO to restore state
+        url = BASE_URL+"/todos/"+ID_TODO
         response = requests.delete(url)
         self.assertEqual(
             response.status_code, 200, "Error en la petición API a {url}"
