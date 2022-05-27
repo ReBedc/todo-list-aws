@@ -1,0 +1,40 @@
++ bash pipelines/PIPELINE-FULL-STAGING/static_test.sh
+++ wc -l
+++ radon cc src -nc
++ RAD_ERRORS=0
++ [[ 0 -ne 0 ]]
+++ radon mi src -nc
+++ wc -l
++ RAD_ERRORS=0
++ [[ 0 -ne 0 ]]
++ flake8 src/__init__.py src/create.py src/decimalencoder.py src/delete.py src/get.py src/list.py src/todoList.py src/translate.py src/update.py
++ [[ 0 -ne 0 ]]
++ bandit src/__init__.py src/create.py src/decimalencoder.py src/delete.py src/get.py src/list.py src/todoList.py src/translate.py src/update.py
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.7.5
+Run started:2022-05-23 18:18:08.617317
+
+Test results:
+	No issues identified.
+
+Code scanned:
+	Total lines of code: 252
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+Files skipped (0):
++ [[ 0 -ne 0 ]]
