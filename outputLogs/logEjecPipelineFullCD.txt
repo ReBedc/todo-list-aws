@@ -16,17 +16,17 @@ Cloning repository git@github.com:ReBedc/todo-list-aws.git
 Fetching upstream changes from git@github.com:ReBedc/todo-list-aws.git
  > git --version # timeout=10
  > git --version # 'git version 2.17.1'
-using GIT_SSH to set credentials
+using GIT_SSH to set credentials 
  > git fetch --tags --progress -- git@github.com:ReBedc/todo-list-aws.git +refs/heads/*:refs/remotes/origin/* # timeout=10
  > git config remote.origin.url git@github.com:ReBedc/todo-list-aws.git # timeout=10
  > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
 Avoid second fetch
  > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
-Checking out Revision ea06bea3553c6539ef138a894c28bc76a1fa6b15 (refs/remotes/origin/master)
+Checking out Revision a8304e173c6c89f1a1f8a5b4af3acad2dd02ee90 (refs/remotes/origin/master)
  > git config core.sparsecheckout # timeout=10
- > git checkout -f ea06bea3553c6539ef138a894c28bc76a1fa6b15 # timeout=10
-Commit message: "Añado Diagrama arquitectura propuesta"
- > git rev-list --no-walk 287e7ff02cbdadf54eee9fcecdd93e471639bf59 # timeout=10
+ > git checkout -f a8304e173c6c89f1a1f8a5b4af3acad2dd02ee90 # timeout=10
+Commit message: "Merge branch 'develop'"
+ > git rev-list --no-walk ea06bea3553c6539ef138a894c28bc76a1fa6b15 # timeout=10
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] withEnv
@@ -37,7 +37,7 @@ Commit message: "Añado Diagrama arquitectura propuesta"
 Starting staging job
 [Pipeline] build
 Scheduling project: PIPELINE-FULL-STAGING
-Starting building: PIPELINE-FULL-STAGING #28
+Starting building: PIPELINE-FULL-STAGING #29
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] stage
@@ -45,7 +45,7 @@ Starting building: PIPELINE-FULL-STAGING #28
 [Pipeline] sh
 + set -x
 + git branch -a
-* (HEAD detached at ea06bea)
+* (HEAD detached at a8304e1)
   remotes/origin/develop
   remotes/origin/feature/aws_local
   remotes/origin/feature/local
@@ -53,42 +53,33 @@ Starting building: PIPELINE-FULL-STAGING #28
   remotes/origin/feature/translate
   remotes/origin/master
 + git checkout -b develop origin/develop
-Previous HEAD position was ea06bea Añado Diagrama arquitectura propuesta
+Previous HEAD position was a8304e1 Merge branch 'develop'
 Switched to a new branch 'develop'
 Branch 'develop' set up to track remote branch 'develop' from 'origin'.
 + git checkout -b master origin/master
 Switched to a new branch 'master'
 Branch 'master' set up to track remote branch 'master' from 'origin'.
 + git merge develop
-Merge made by the 'recursive' strategy.
- samconfig.toml                  |  2 +-
- src/todoList.py                 | 49 ++++++++++++++++++++++++++++++++++
- src/translate.py                | 21 +++++++++++++++
- template.yaml                   | 16 +++++++++++
- test/integration/todoApiTest.py | 58 +++++++++++++++++++++++++++++++++++++---
- test/unit/TestToDo.py           | 59 ++++++++++++++++++++++++++++++++++++++---
- 6 files changed, 196 insertions(+), 9 deletions(-)
- create mode 100644 src/translate.py
+Already up to date.
 [Pipeline] sshagent
 [ssh-agent] Using credentials ReBedc
 [ssh-agent] Looking for ssh-agent implementation...
 [ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
 $ ssh-agent
-SSH_AUTH_SOCK=/tmp/ssh-bbsrtpAbvf1d/agent.4274
-SSH_AGENT_PID=4276
+SSH_AUTH_SOCK=/tmp/ssh-MZJHAxgUz0vV/agent.10394
+SSH_AGENT_PID=10396
 Running ssh-add (command line suppressed)
-Identity added: /var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_13195967625198886310.key (/var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_13195967625198886310.key)
+Identity added: /var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_15746481373657904963.key (/var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_15746481373657904963.key)
 [ssh-agent] Started.
 [Pipeline] {
 [Pipeline] sh
 + git push origin master
-To github.com:ReBedc/todo-list-aws.git
-   ea06bea..a8304e1  master -> master
+Everything up-to-date
 [Pipeline] }
 $ ssh-agent -k
 unset SSH_AUTH_SOCK;
 unset SSH_AGENT_PID;
-echo Agent pid 4276 killed;
+echo Agent pid 10396 killed;
 [ssh-agent] Stopped.
 [Pipeline] // sshagent
 [Pipeline] }
@@ -99,7 +90,7 @@ echo Agent pid 4276 killed;
 Starting production job
 [Pipeline] build
 Scheduling project: PIPELINE-FULL-PRODUCTION
-Starting building: PIPELINE-FULL-PRODUCTION #3
+Starting building: PIPELINE-FULL-PRODUCTION #5
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] stage
