@@ -26,7 +26,7 @@ Checking out Revision a8304e173c6c89f1a1f8a5b4af3acad2dd02ee90 (refs/remotes/ori
  > git config core.sparsecheckout # timeout=10
  > git checkout -f a8304e173c6c89f1a1f8a5b4af3acad2dd02ee90 # timeout=10
 Commit message: "Merge branch 'develop'"
- > git rev-list --no-walk ea06bea3553c6539ef138a894c28bc76a1fa6b15 # timeout=10
+ > git rev-list --no-walk a8304e173c6c89f1a1f8a5b4af3acad2dd02ee90 # timeout=10
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] withEnv
@@ -37,7 +37,7 @@ Commit message: "Merge branch 'develop'"
 Starting staging job
 [Pipeline] build
 Scheduling project: PIPELINE-FULL-STAGING
-Starting building: PIPELINE-FULL-STAGING #29
+Starting building: PIPELINE-FULL-STAGING #30
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] stage
@@ -60,26 +60,38 @@ Branch 'develop' set up to track remote branch 'develop' from 'origin'.
 Switched to a new branch 'master'
 Branch 'master' set up to track remote branch 'master' from 'origin'.
 + git merge develop
-Already up to date.
+Merge made by the 'recursive' strategy.
+ outputLogs/logEjecPipelineFullCD.txt               | 111 +++
+ .../logEjecPipelineProductionDesdeFullCD.txt       | 483 +++++++++++
+ outputLogs/logEjecPipelineStagingDesdeFullCD.txt   | 930 +++++++++++++++++++++
+ outputLogs/logEjecStaticTests.txt                  |  40 +
+ test/unit/TestToDo.py                              |   6 +-
+ 5 files changed, 1568 insertions(+), 2 deletions(-)
+ create mode 100644 outputLogs/logEjecPipelineFullCD.txt
+ create mode 100644 outputLogs/logEjecPipelineProductionDesdeFullCD.txt
+ create mode 100644 outputLogs/logEjecPipelineStagingDesdeFullCD.txt
+ create mode 100644 outputLogs/logEjecStaticTests.txt
 [Pipeline] sshagent
 [ssh-agent] Using credentials ReBedc
 [ssh-agent] Looking for ssh-agent implementation...
 [ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
 $ ssh-agent
-SSH_AUTH_SOCK=/tmp/ssh-MZJHAxgUz0vV/agent.10394
-SSH_AGENT_PID=10396
+SSH_AUTH_SOCK=/tmp/ssh-FmccKVksew3N/agent.11103
+SSH_AGENT_PID=11106
 Running ssh-add (command line suppressed)
-Identity added: /var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_15746481373657904963.key (/var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_15746481373657904963.key)
+Identity added: /var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_5825216531286989914.key (/var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_5825216531286989914.key)
 [ssh-agent] Started.
 [Pipeline] {
 [Pipeline] sh
 + git push origin master
-Everything up-to-date
+Warning: Permanently added the ECDSA host key for IP address '140.82.112.3' to the list of known hosts.
+To github.com:ReBedc/todo-list-aws.git
+   a8304e1..ccdf578  master -> master
 [Pipeline] }
 $ ssh-agent -k
 unset SSH_AUTH_SOCK;
 unset SSH_AGENT_PID;
-echo Agent pid 10396 killed;
+echo Agent pid 11106 killed;
 [ssh-agent] Stopped.
 [Pipeline] // sshagent
 [Pipeline] }
@@ -90,7 +102,7 @@ echo Agent pid 10396 killed;
 Starting production job
 [Pipeline] build
 Scheduling project: PIPELINE-FULL-PRODUCTION
-Starting building: PIPELINE-FULL-PRODUCTION #5
+Starting building: PIPELINE-FULL-PRODUCTION #6
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] stage
