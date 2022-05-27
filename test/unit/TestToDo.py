@@ -245,10 +245,12 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(
             self.text,
             responseGet['text'])
-        mock_translateText.return_value = 'Learn DevOps and Cloud at UNIR'
+        translatedText_mock = {}
+        translatedText_mock['TranslatedText'] = 'Learn DevOps and Cloud at UNIR'
+        mock_translateText.return_value = translatedText_mock
         translatedText = translateText(self.text,'es','en')
         translatedItem = translate_item(idItem, 'en', self.dynamodb)
-        self.assertEqual(translatedText,'Learn DevOps and Cloud at UNIR')
+        self.assertEqual(translatedText['TranslatedText'],'Learn DevOps and Cloud at UNIR')
         print ('End: test_translate_todo')
 
 
